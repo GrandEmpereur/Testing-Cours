@@ -17,6 +17,6 @@ describe('calldependance function', () => {
         mockedAxios.get.mockResolvedValue({ data: 'Hello, World!' });
         const result = await calldependance('World');
         expect(result).toBe('Hello, World!');
-        expect(mockedAxios.get).toHaveBeenCalledWith('http://localhost:3001/action?name=World');
+        expect(mockedAxios.get).toHaveBeenCalledWith('https://testing-cours-118ff93ae024.herokuapp.com/action?name=World');
     });
 });
