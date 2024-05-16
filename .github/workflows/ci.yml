@@ -91,5 +91,5 @@ jobs:
         with:
           api-key: ${{ secrets.LATENCY_LINGO_API_KEY }}
           file: result.jtl
-          label: Checkout Flow Automated Test Plan
+          label: Checkout Flow Automated Test Plan For TestingCours
           format: jmeter
