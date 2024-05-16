@@ -1,0 +1,12 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1715863869460,273,Hotel,401,Unauthorized,Thread Group 1-1,text,false,,574,1259,1,1,http://us-east1-weighty-pixel-423320-f6.cloudfunctions.net/nodejs-http-function/,273,0,109
+1715863869733,141,Hotel,401,Unauthorized,Thread Group 1-1,text,false,,574,1259,1,1,http://us-east1-weighty-pixel-423320-f6.cloudfunctions.net/nodejs-http-function/,141,0,0
+1715863870440,196,Hotel,401,Unauthorized,Thread Group 1-2,text,false,,574,1259,1,1,http://us-east1-weighty-pixel-423320-f6.cloudfunctions.net/nodejs-http-function/,195,0,37
+1715863870637,161,Hotel,401,Unauthorized,Thread Group 1-2,text,false,,574,1259,1,1,http://us-east1-weighty-pixel-423320-f6.cloudfunctions.net/nodejs-http-function/,161,0,0
+1715863871440,192,Hotel,401,Unauthorized,Thread Group 1-3,text,false,,574,1259,1,1,http://us-east1-weighty-pixel-423320-f6.cloudfunctions.net/nodejs-http-function/,192,0,39
+1715863871632,159,Hotel,401,Unauthorized,Thread Group 1-3,text,false,,574,1259,1,1,http://us-east1-weighty-pixel-423320-f6.cloudfunctions.net/nodejs-http-function/,159,0,0
+1715863872443,203,Hotel,401,Unauthorized,Thread Group 1-4,text,false,,574,1259,1,1,http://us-east1-weighty-pixel-423320-f6.cloudfunctions.net/nodejs-http-function/,203,0,44
+1715863872648,141,Hotel,401,Unauthorized,Thread Group 1-4,text,false,,574,1259,1,1,http://us-east1-weighty-pixel-423320-f6.cloudfunctions.net/nodejs-http-function/,141,0,0
+1715863873440,188,Hotel,401,Unauthorized,Thread Group 1-5,text,false,,574,1259,1,1,http://us-east1-weighty-pixel-423320-f6.cloudfunctions.net/nodejs-http-function/,188,0,36
+1715863873629,138,Hotel,401,Unauthorized,Thread Group 1-5,text,false,,574,1259,1,1,http://us-east1-weighty-pixel-423320-f6.cloudfunctions.net/nodejs-http-function/,138,0,0
+1715863874441,55,Hotel,Non HTTP response code: java.net.SocketException,Non HTTP response message: Socket closed,Thread Group 1-6,text,false,,2669,0,1,1,http://us-east1-weighty-pixel-423320-f6.cloudfunctions.net/nodejs-http-function/,0,0,37

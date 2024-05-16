@@ -9,6 +9,44 @@ on:
       - main
 
 jobs:
+  gitleaks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Run Gitleaks
+        id: gitleaks
+        uses: DariuszPorowski/github-action-gitleaks@v2
+        with:
+          fail: false
+
+      - name: Post PR comment
+        uses: actions/github-script@v6
+        if: ${{ steps.gitleaks.outputs.exitcode == 1 && github.event_name == 'pull_request' }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { GITLEAKS_RESULT, GITLEAKS_OUTPUT } = process.env
+            const output = `### ${GITLEAKS_RESULT}
+
+            <details><summary>Log output</summary>
+
+            ${GITLEAKS_OUTPUT}
+
+            </details>
+            `
+            github.rest.issues.createComment({
+              ...context.repo,
+              issue_number: context.issue.number,
+              body: output
+            })
+        env:
+          GITLEAKS_RESULT: ${{ steps.gitleaks.outputs.result }}
+          GITLEAKS_OUTPUT: ${{ steps.gitleaks.outputs.output }}
   build:
     runs-on: ubuntu-latest
 
@@ -31,3 +69,27 @@ jobs:
         uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+
+  JMeter: 
+    name: Create JMeter Test Plan & Deploy to Latency Lingo
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run JMeter Tests
+        uses: QAInsights/PerfAction@v3.1
+        with:
+          test-plan-path: ./JMeter/ApiTestPlan.jmx
+          args: ""
+      - name: Upload Results
+        uses: actions/upload-artifact@v2
+        with:
+          name: jmeter-results
+          path: result.jtl
+      - name: Analyze Results with Latency Lingo
+        uses: latency-lingo/github-action@v0.0.2
+        with:
+          api-key: ${{ secrets.LATENCY_LINGO_API_KEY }}
+          file: result.jtl
+          label: Checkout Flow Automated Test Plan
+          format: jmeter
