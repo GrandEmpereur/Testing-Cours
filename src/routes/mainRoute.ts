@@ -1,9 +1,6 @@
-import Router from "koa-router";
-import koaBody from "koa-body";
+import Router, { RouterContext } from "koa-router";
 import dotenv from "dotenv";
 import path from "path";
-
-// Services
 import { rateLimiter } from "../security/rateLimiter";
 
 const ROUTER_OPTIONS = {
@@ -15,15 +12,16 @@ dotenv.config({
     path: path.resolve(process.cwd(), process.env.NODE_ENV === "development" ? '.env.development' : '.env'),
 });
 
-
-/**
- * Router for handling requests to /api/giftcards.
- */
 export default new Router(ROUTER_OPTIONS)
 
-    /**
-     */
-    .get("/", rateLimiter(15, 1), koaBody(), async (ctx: any) => {
-        ctx.body = "Hello, World!";
+    .get("/", rateLimiter(15, 1), async (ctx: RouterContext) => {
+        ctx.body = {
+            "message": "Welcome to the hotel API"
+        }
     })
 
+    .get("/dataset", rateLimiter(15, 1), async (ctx: RouterContext) => {
+        ctx.body = {
+            "message": "Welcome to the hotel API",
+        }
+    })

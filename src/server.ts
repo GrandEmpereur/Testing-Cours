@@ -1,9 +1,11 @@
 import * as dotenv from "dotenv";
-import Koa, { Context } from "koa";
+import Koa from "koa";
 import path from "path";
 import cors from "@koa/cors";
-
+import hotel from "./routes/hotel";
 import mainRoute from "./routes/mainRoute";
+import datasetRoute from "./routes/datasetRoute";
+import functionRoutes from './routes/functionRoutes';
 
 // Load environment variables from .env.development or .env
 dotenv.config({
@@ -16,7 +18,7 @@ dotenv.config({
  */
 async function main(): Promise<void> {
     const app = await createApp();
-    const port = process.env.PORT || 4200;
+    const port = process.env.PORT || 3001;  // Use port 3001 to match the tests
     console.log(`Server listening on port http://localhost:${port}`);
     app.listen(port);
 }
@@ -25,18 +27,18 @@ async function main(): Promise<void> {
  * Initializes and configures the Koa application.
  * @returns The initialized Koa application.
  */
-async function createApp(): Promise<Koa> {
+export async function createApp(): Promise<Koa> {
     const app = new Koa();
 
     // Enable CORS
     app.use(cors());
 
-    // Use the mainRoute routes
+    app.use(hotel.routes());
     app.use(mainRoute.routes());
+    app.use(datasetRoute.routes());
+    app.use(functionRoutes.routes());  // Add the new routes
 
-    /**
-     * Global error handling middleware.
-     */
+    // Global error handling middleware
     app.on('error', (err, ctx) => {
         console.error('server error', err);
         ctx.status = 500;
@@ -50,4 +52,8 @@ async function createApp(): Promise<Koa> {
     return app;
 }
 
-main();
+if (!module.parent) {
+    main();
+}
+
+export default createApp;
