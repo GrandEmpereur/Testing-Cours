@@ -1,0 +1,49 @@
+name: Secret Scan
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  gitleaks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Run Gitleaks
+        id: gitleaks
+        uses: DariuszPorowski/github-action-gitleaks@v2
+        with:
+          fail: false
+
+      - name: Post PR comment
+        uses: actions/github-script@v6
+        if: ${{ steps.gitleaks.outputs.exitcode == 1 && github.event_name == 'pull_request' }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { GITLEAKS_RESULT, GITLEAKS_OUTPUT } = process.env
+            const output = `### ${GITLEAKS_RESULT}
+
+            <details><summary>Log output</summary>
+
+            ${GITLEAKS_OUTPUT}
+
+            </details>
+            `
+            github.rest.issues.createComment({
+              ...context.repo,
+              issue_number: context.issue.number,
+              body: output
+            })
+        env:
+          GITLEAKS_RESULT: ${{ steps.gitleaks.outputs.result }}
+          GITLEAKS_OUTPUT: ${{ steps.gitleaks.outputs.output }}

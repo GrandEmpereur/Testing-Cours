@@ -11,7 +11,10 @@
     "build": "rimraf ./build && yarn tsc",
     "start": "node --experimental-specifier-resolution=node ./build/server.js",
     "tsc": "tsc",
-    "postinstall": "yarn build"
+    "prepare": "if [ -z \\\"$CI\\\" ]; then husky install; fi",
+    "postinstall": "yarn build",
+    "test": "vitest run --coverage",
+    "coverage": "vitest run --coverage"
   },
   "devDependencies": {
     "@types/supertest": "^6.0.2",
