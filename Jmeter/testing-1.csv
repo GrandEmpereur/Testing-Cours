@@ -1,2 +1,0 @@
-timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
-1715863958901,197,HTTP Request,200,OK,Stress test 1-1,text,true,,857,142,1,1,http://testing-cours-118ff93ae024.herokuapp.com/,197,0,123
