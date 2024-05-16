@@ -79,7 +79,7 @@ jobs:
       - name: Run JMeter Tests
         uses: QAInsights/PerfAction@v3.1
         with:
-          test-plan-path: ./JMeter/SummaryReport.jmx
+          test-plan-path: ./Jmeter/SummaryReport.jmx
           args: ""
       - name: Upload Results
         uses: actions/upload-artifact@v2
